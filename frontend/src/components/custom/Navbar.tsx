@@ -7,7 +7,7 @@ import {
   NavigationMenuTrigger,
 } from "@radix-ui/react-navigation-menu";
 import { NavLink } from "react-router-dom";
-import siteIcon from "../../../public/tabIcon.svg";
+import siteIcon from "../../assets/tabIcon.svg";
 import ListItem from "./ListItem";
 import { UserProfileAvatar } from "./UserProfileAvatar";
 
