@@ -1,11 +1,11 @@
-import { Button } from "./components/ui/button";
+import Navbar from "./components/custom/Navbar";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
-      <div className="flex justify-around">
-        <Button>fuck me</Button>
-      </div>
+      <Navbar />
+      <Home/>
     </>
   );
 }

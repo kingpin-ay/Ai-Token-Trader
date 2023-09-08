@@ -15,6 +15,9 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      'tailed' : ['Poppins', 'san-sherif'], // Ensure fonts with spaces have " " surrounding it.
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
