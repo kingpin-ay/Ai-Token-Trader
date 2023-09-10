@@ -90,7 +90,7 @@ const LoginForm = () => {
             className="disabled:bg-slate-500"
             type="submit"
           >
-            Submit
+            Sign In
           </Button>
         </form>
       </Form>

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const SiteTitle = (props : props) => {
   return (
-    <div className={`basis-2/5 py-2 text-${props.color}`}>
+    <div className={`lg:basis-2/5 basis-4/5 py-2 text-${props.color}`}>
       <NavLink
         to="/"
         className="w-44 flex justify-between align-middle text-center"

@@ -11,10 +11,10 @@ const Login = () => {
   return (
     <>
       {username && <Navigate to="/" />}
-      <div className="w-screen h-screen flex">
-        <div className="basis-1/3 bg-black p-4">
+      <div className="w-screen h-screen lg:flex">
+        <div className="basis-1/3 bg-black w-screen h-screen lg:p-4 p-1">
           <SiteTitle siteIcon={assests.siteIcon} color="white" />
-          <div className="py-32 text-white">
+          <div className="lg:py-32 py-20 text-white">
             <div className="px-8 flex flex-col">
               <div className="mb-12">
                 <p className=" text-4xl">Sign In</p>
@@ -23,7 +23,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="basis-2/3 bg-slate-600"></div>
+        <div className="hidden lg:block basis-2/3 bg-slate-600"></div>
       </div>
     </>
   );
