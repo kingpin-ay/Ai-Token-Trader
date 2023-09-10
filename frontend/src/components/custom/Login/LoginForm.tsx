@@ -13,7 +13,9 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
-import { Navigate } from "react-router-dom";
+
+import { saveCredential } from "@/state/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/state/app/hook";
 
 const formSchema = z.object({
   username: z.string().trim().min(4, {
@@ -28,6 +30,9 @@ const formSchema = z.object({
 type TFormSchema = z.infer<typeof formSchema>;
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
+  const {username , password} = useAppSelector((state) => state.auth)
+
   const form = useForm<TFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,13 +42,14 @@ const LoginForm = () => {
   });
 
   const onSubmit = async (values: TFormSchema) => {
-    console.log(values);
-    if (values.password != "dev@atbchain" || values.username != "devBlank")
-      return;
-    await new Promise((resolve) => setTimeout(resolve , 1000))
-    form.reset();   
-    return <Navigate to="/" />;
-  }
+    if (values.password != "magnus123" || values.username != "ironclad") return;
+    console.log("username: " , username)
+    console.log("password: " , password)
+    dispatch(
+      saveCredential({ username: values.username, password: values.password })
+    );
+    form.reset();
+  };
 
   return (
     <>
@@ -84,7 +90,7 @@ const LoginForm = () => {
             className="disabled:bg-slate-500"
             type="submit"
           >
-            Submit
+            Sign In
           </Button>
         </form>
       </Form>

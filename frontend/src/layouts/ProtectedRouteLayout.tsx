@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom"
+import { useAppSelector } from "@/state/app/hook"
 
 
 const ProtectedRouteLayout = () => {
-    const auth = {token: false}
+    const { username , password } = useAppSelector((state) => state.auth)
+    const isLoggedIn = username !== "" && password !== ""
   return (
-    auth.token ? <Outlet /> : <Navigate to="/login"/>
+    isLoggedIn ? <Outlet /> : <Navigate to="/login"/>
   )
 }
 
