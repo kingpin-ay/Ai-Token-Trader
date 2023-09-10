@@ -1,4 +1,5 @@
-import Layout from "@/Layout";
+import Layout from "@/layouts/Layout";
+import ProtectedRouteLayout from "@/layouts/ProtectedRouteLayout";
 import About from "@/pages/About";
 import Contacts from "@/pages/Contacts";
 import Home from "@/pages/Home";
@@ -12,12 +13,16 @@ import {
 
 const RoutingTable = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route path="" element={<Home />} />
-      <Route path="about" element={<About />} />
-      <Route path="tester" element={<Tester />} />
-      <Route path="Login" element={<Login />} />
-      <Route path="contacts" element={<Contacts />} />
+    <Route>
+      <Route path="/" element={<ProtectedRouteLayout />}>
+        <Route path="/" element={<Layout />}>
+          <Route path="" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="tester" element={<Tester />} />
+          <Route path="contacts" element={<Contacts />} />
+        </Route>
+      </Route>
+      <Route path="/login" element={<Login />} />
     </Route>
   )
 );
