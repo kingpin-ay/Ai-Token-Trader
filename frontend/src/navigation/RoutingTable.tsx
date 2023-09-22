@@ -5,6 +5,7 @@ import Contacts from "@/pages/Contacts";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Tester from "@/pages/Tester";
+import ErrorPage from "@/pages/ErrorPage";
 import {
   Route,
   createBrowserRouter,
@@ -13,7 +14,7 @@ import {
 
 const RoutingTable = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route  errorElement={<ErrorPage />}>
       <Route path="/" element={<ProtectedRouteLayout />}>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />

@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const { username } = useAppSelector((state) => state.auth);
-  console.log(username)
+  console.log(username);
 
   return (
     <>
