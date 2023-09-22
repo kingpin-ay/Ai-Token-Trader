@@ -16,6 +16,7 @@ import { z } from "zod";
 
 import { saveCredential } from "@/state/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@/state/app/hook";
+import { deploymentState } from "@/productionValue";
 
 const formSchema = z.object({
   username: z.string().trim().min(4, {
@@ -26,6 +27,8 @@ const formSchema = z.object({
     message: "Password must be at least 6 characters.",
   }),
 });
+
+
 
 type TFormSchema = z.infer<typeof formSchema>;
 
@@ -50,6 +53,12 @@ const LoginForm = () => {
     );
     form.reset();
   };
+
+  const handleDevLogin = () => { 
+    dispatch(
+      saveCredential({ username: "developer", password: "almighty" })
+    );
+  }
 
   return (
     <>
@@ -92,6 +101,8 @@ const LoginForm = () => {
           >
             Sign In
           </Button>
+
+          <Button onClick={handleDevLogin} className={`ml-2 ${deploymentState? "hidden" : ""}`}>Dev Only</Button>
         </form>
       </Form>
     </>
