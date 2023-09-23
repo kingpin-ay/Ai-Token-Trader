@@ -11,6 +11,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import SignUp from "@/pages/SignUp";
 
 const RoutingTable = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const RoutingTable = createBrowserRouter(
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
     </Route>
   )
 );

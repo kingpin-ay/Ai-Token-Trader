@@ -1,8 +1,7 @@
-import SiteTitle from "@/components/custom/Navbar/SiteTitle";
-import { assests } from "../static/assetsCollection";
 import LoginForm from "@/components/custom/Login/LoginForm";
 import { useAppSelector } from "@/state/app/hook";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import AuthLayouts from "@/components/custom/AuthLayouts";
 
 const Login = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -11,20 +10,18 @@ const Login = () => {
   return (
     <>
       {username && <Navigate to="/" />}
-      <div className="w-screen h-screen lg:flex">
-        <div className="basis-1/3 bg-black w-screen h-screen lg:p-4 p-1">
-          <SiteTitle siteIcon={assests.siteIcon} color="white" />
-          <div className="lg:py-32 py-20 text-white">
-            <div className="px-8 flex flex-col">
-              <div className="mb-12">
-                <p className=" text-4xl">Sign In</p>
-              </div>
-              <LoginForm />
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:block basis-2/3 bg-slate-600"></div>
-      </div>
+      <AuthLayouts title="Sign In" isLogin={true}>
+        <>
+          <LoginForm />
+
+          <p className="pt-2 text-slate-500 font-normal">
+            Don't Have a Account ?{" "}
+            <Link to="/signup" className="font-normal text-white hover:cursor-pointer underline underline-offset-1">
+              Sign Up.
+            </Link>
+          </p>
+        </>
+      </AuthLayouts>
     </>
   );
 };

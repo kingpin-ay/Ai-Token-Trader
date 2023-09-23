@@ -71,7 +71,7 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="ayush001" {...field} />
                 </FormControl>
                 <FormDescription>
                   This is your public display name , USERNAME.
