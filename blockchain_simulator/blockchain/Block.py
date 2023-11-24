@@ -78,11 +78,39 @@ class Block :
 
 class BlockChain : 
     def __init__(self) -> None:
-        genosis_block = Block(block_number=0 , encrypted_transaction_data = [{"transaction": "Genosis block" , "hash_validator" : "6f06c52ef9291d6ec126794910178feaa9d4c07ecf38a7410c656a3526d28272"}], block_size=5 , previous_block_hash="0000" , difficulty=4)
+        self.block_size = 5
+        self.block_chain_difficulty = 4
+        genosis_block = Block(block_number=0 , encrypted_transaction_data = [{"transaction": "Genosis block" , "hash_validator" : "6f06c52ef9291d6ec126794910178feaa9d4c07ecf38a7410c656a3526d28272"}], block_size=self.block_size , previous_block_hash="0000" , difficulty=self.block_chain_difficulty)
         genosis_block.calculate_nonce()
         self.blockChain = [genosis_block]
         self.transaction_pool = []
+        self.next_block = None
+        self.minimum_trasaction_for_one_block = 2
+        
+        
+    def block_creation(self):
+        if(len(self.transaction_pool) < self.minimum_trasaction_for_one_block) : return None
+
+        self.next_block = Block(block_number=len(self.blockChain) , encrypted_transaction_data=self.transaction_pool[:self.minimum_trasaction_for_one_block] , block_size=self.block_size , previous_block_hash=self.blockChain[-1].get_block_hash() , difficulty=self.block_chain_difficulty)
+        
+        self.transaction_pool = self.transaction_pool[self.minimum_trasaction_for_one_block:]
+
+        return self.next_block
+    
+    def mine_block(self):
+        if(self.next_block == None) : return
+        self.next_block.calculate_nonce()
+        self.blockChain.append(self.next_block)
+        self.next_block = None
+
+    def validate_blockChain (self) :
         pass
+
+    def add_transaction_to_thePull (self , transaction):
+        self.transaction_pool.append(transaction)
+
+    def __str__ (self):
+        return f"right now the blockChain : {self.blockChain}"
 
 
 
@@ -93,3 +121,13 @@ if __name__ == "__main__" :
     print(f"block hash -> {block_hash}")
     print(f"block nonce -> {nonce}")
     print(block1)
+
+
+    # testing for blockchain class
+    blockchain = BlockChain()
+    transaction = {"transaction": "this is a testing block1" , "hash_validator": "testing hash"}
+    blockchain.add_transaction_to_thePull(transaction)
+    blockchain.add_transaction_to_thePull(transaction)
+    blockchain.block_creation()
+    blockchain.mine_block()
+    print(blockchain)
