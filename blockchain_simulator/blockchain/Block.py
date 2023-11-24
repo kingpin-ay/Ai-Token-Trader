@@ -2,6 +2,21 @@ import time
 import hashlib
 
 
+class Transaction :
+    def __init__(self , data) -> None:
+        self.data = data
+        self.validation = self.hash_calculator(data)
+
+    def hash_calculator (self ,data):
+        hash_obj = hashlib.sha256()
+        hash_obj.update(str(data).encode())
+        hex_dig = hash_obj.hexdigest()
+        return hex_dig
+    
+    def transaction_data (self):
+        return {"transaction": self.data , "hash_validator": self.validation}
+
+
 
 class Block : 
 
@@ -80,7 +95,8 @@ class BlockChain :
     def __init__(self) -> None:
         self.block_size = 5
         self.block_chain_difficulty = 4
-        genosis_block = Block(block_number=0 , encrypted_transaction_data = [{"transaction": "Genosis block" , "hash_validator" : "6f06c52ef9291d6ec126794910178feaa9d4c07ecf38a7410c656a3526d28272"}], block_size=self.block_size , previous_block_hash="0000" , difficulty=self.block_chain_difficulty)
+        genosis_transaction = Transaction("Genosis block")
+        genosis_block = Block(block_number=0 , encrypted_transaction_data = [genosis_transaction.transaction_data()], block_size=self.block_size , previous_block_hash="0000" , difficulty=self.block_chain_difficulty)
         genosis_block.calculate_nonce()
         self.blockChain = [genosis_block]
         self.transaction_pool = []
@@ -116,6 +132,8 @@ class BlockChain :
 
 # for testing purposes
 if __name__ == "__main__" :
+
+    # testing for block class
     block1 = Block(block_number=0 , encrypted_transaction_data = ["hello" , "ayush" , "how" , "are" , "you"], block_size=10 , previous_block_hash="0000" , difficulty=4)
     block_hash , nonce  = block1.calculate_nonce()
     print(f"block hash -> {block_hash}")
@@ -125,9 +143,15 @@ if __name__ == "__main__" :
 
     # testing for blockchain class
     blockchain = BlockChain()
-    transaction = {"transaction": "this is a testing block1" , "hash_validator": "testing hash"}
-    blockchain.add_transaction_to_thePull(transaction)
-    blockchain.add_transaction_to_thePull(transaction)
+    transaction = Transaction("A sends 10 bucks to B")
+    transaction2 = Transaction("A sends 10 bucks to C")
+    blockchain.add_transaction_to_thePull(transaction.transaction_data())
+    blockchain.add_transaction_to_thePull(transaction2.transaction_data())
     blockchain.block_creation()
     blockchain.mine_block()
     print(blockchain)
+
+
+    # testing for transaction class
+    print(transaction.transaction_data())
+    print(transaction2.transaction_data())
