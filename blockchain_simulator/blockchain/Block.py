@@ -2,6 +2,7 @@ import time
 import hashlib
 
 
+
 class Block : 
 
     def __init__(self , block_number , encrypted_transaction_data , block_size, previous_block_hash , difficulty) -> None:
@@ -72,6 +73,16 @@ class Block :
 
     def __str__(self) -> str:
         return f"Block__{self.block_number} : {self.full_block}"
+
+
+
+class BlockChain : 
+    def __init__(self) -> None:
+        genosis_block = Block(block_number=0 , encrypted_transaction_data = [{"transaction": "Genosis block" , "hash_validator" : "6f06c52ef9291d6ec126794910178feaa9d4c07ecf38a7410c656a3526d28272"}], block_size=5 , previous_block_hash="0000" , difficulty=4)
+        genosis_block.calculate_nonce()
+        self.blockChain = [genosis_block]
+        self.transaction_pool = []
+        pass
 
 
 
