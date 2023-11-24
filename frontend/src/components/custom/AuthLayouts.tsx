@@ -2,6 +2,10 @@ import { JSXElementConstructor, ReactElement } from "react";
 import SiteTitle from "./Navbar/SiteTitle";
 import { assests } from "@/static/assetsCollection";
 
+
+
+
+
 const AuthLayouts = (props: props) => {
   return (
     <div className="w-screen h-screen lg:flex">
@@ -19,7 +23,13 @@ const AuthLayouts = (props: props) => {
             {props.isLogin && props.children}
           </div>
         </div>
+        {!props.isLogin && (
+          <div className="lg:p-20 flex flex-col">
+            {props.welcome}
+          </div>
+        )}
       </div>
+      
       <div
         className={`${
           props.isLogin ? "hidden" : ""
@@ -38,6 +48,11 @@ const AuthLayouts = (props: props) => {
             </div>
           </div>
         )}
+        {props.isLogin && (
+          <div className="lg:p-20">
+            {props.welcome}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -45,6 +60,7 @@ const AuthLayouts = (props: props) => {
 
 interface props {
   children: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
+  welcome?: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
   title: string;
   isLogin?: boolean;
 }
