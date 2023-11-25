@@ -75,10 +75,11 @@ class Block :
             nonceCount += 1
         self.__version[1]["nonce"] = nonceCount
         self.header["version"] = self.__version[1]
+        self.nonce = nonceCount
         return self.__block_hash , nonceCount
     
     def timestamp (self) : 
-        return int (time.time())
+        return int(time.time())
 
     def hash_calculator (self ,data):
         hash_obj = hashlib.sha256()
@@ -105,7 +106,7 @@ class BlockChain :
         
         
     def block_creation(self):
-        if(len(self.transaction_pool) < self.minimum_trasaction_for_one_block) : return None
+        if(len(self.transaction_pool) < self.minimum_trasaction_for_one_block) : return False
 
         self.next_block = Block(block_number=len(self.blockChain) , encrypted_transaction_data=self.transaction_pool[:self.minimum_trasaction_for_one_block] , block_size=self.block_size , previous_block_hash=self.blockChain[-1].get_block_hash() , difficulty=self.block_chain_difficulty)
         
@@ -114,15 +115,16 @@ class BlockChain :
         return self.next_block
     
     def mine_block(self):
-        if(self.next_block == None) : return
-        self.next_block.calculate_nonce()
+        if(self.next_block == None) : return False
+        block_hash , nonce = self.next_block.calculate_nonce()
         self.blockChain.append(self.next_block)
         self.next_block = None
+        return {"block_hash": block_hash , "block_nonce": nonce}
 
     def validate_blockChain (self) :
         pass
 
-    def add_transaction_to_thePull (self , transaction):
+    def add_transaction_to_the_pool (self , transaction):
         self.transaction_pool.append(transaction)
 
     def __str__ (self):
