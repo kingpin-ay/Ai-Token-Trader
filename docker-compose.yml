@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./blockchain_simulator
+    ports:
+      - "8000:80"
+    networks:
+      - simulator
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    networks:
+      - simulator
+
+networks:
+  simulator:
+    driver: bridge
