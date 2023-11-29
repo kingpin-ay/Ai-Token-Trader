@@ -1,11 +1,16 @@
-FROM node
+# Node working block
+FROM node:alpine3.18 as nodeWork
 WORKDIR /app
-COPY . .
+COPY package.json .
 
 RUN npm install
-RUN npm install pm2 -g
-RUN npm install serve -g
+COPY . .
 RUN npm run build
 
-CMD [ "pm2" , "serve" , "dist/" , "80" , "-spa"]
 
+# Nginx Working block
+FROM nginx:1.9.15-alpine
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=nodeWork /app/dist .
+ENTRYPOINT [ "nginx" , "-g" , "daemon off;" ]
